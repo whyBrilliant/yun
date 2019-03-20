@@ -2,7 +2,7 @@
 
 >简单来说把 JavaScript 中 es2015/2016/2017/20... 的新语法转化为 es5，让低端运行环境(如浏览器和 node )能够认识并执行。
 
-## preset
+## preset(预置条件)
 
 1. stage-x, 这里面包含的都是当年最新规范的草案，每年更新。
   
@@ -33,6 +33,28 @@
   ]
 }
 ```
+
+
+```
+{
+    "plugins": [
+        "transform-es2015-arrow-functions", //转译箭头函数
+        "transform-es2015-classes", //转译class语法
+        "transform-es2015-spread", //转译数组解构
+        "transform-es2015-for-of" //转译for-of
+    ]
+}
+//如果要为某个插件添加配置项，按如下写法：
+{
+    "plugins":[
+        //改为数组，第二个元素为配置项
+        ["transform-es2015-arrow-functions", { "spec": true }]
+    ]
+}
+
+```
+
+
 
 3. 配置项
 
