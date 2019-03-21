@@ -36,6 +36,8 @@
 
 
 ```
+.babelrc 文件，会先调用 "transform-es2015-arrow-functions"
+
 {
     "plugins": [
         "transform-es2015-arrow-functions", //转译箭头函数

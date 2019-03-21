@@ -47,6 +47,19 @@ store 将凭据保存在磁盘上，详情见 https://git-scm.com/docs/git-crede
 
 ### 实践
 
+一、cache方式
+
+1. 设置记住密码（默认15分钟）：
+
+    git config --global credential.helper cache
+
+2. 自定义设置时间
+
+    git config credential.helper 'cache --timeout=3600'
+
+
+二、store方式
+
 1. 先查看系统支持哪种helper
 ```
   git help -a | grep credential 
@@ -58,21 +71,21 @@ cache是存储在内存中，可以设定有效时间但是时间过去后，将
 凭据可以设置为全局，也可以设置为仅仅在当前的项目下起作用。 
 如果想使用全局，则设置为： 
 
-git config –global credential.helper store –file=git_credentails. 
+git config –global credential.helper store [–file=git_credentails]
 
 如果仅仅设置当前项目有效，则进入项目代码目录下，运行： 
 
-git config credential.helper store –file=.git_credentails. 
+git config credential.helper store [–file=.git_credentails]
 
-上面的–file=.git-credentials表示你的用户名密码存储的文件目录结构，即存放在哪里由你指定。
+上面的–file=.git-credentials表示你的用户名密码存储的文件目录结构，即存放在哪里由你指定, 也可以不指定。
 
 3. 查看配置
 
-如果你的凭证位置没有指定，则去用户目录下查看，发现多了一个.git_credentials文件，打开文件可以看到里面以明文存放你的用户名和密码（进行第四部分后才会有）。 
+    如果你的凭证位置没有指定，则去用户目录下查看，发现多了一个.git_credentials文件，打开文件可以看到里面以明文存放你的用户名和密码（进行第四部分后才会有）。 
 
 
-然后在你的项目目录下运行指令 git config –list 发现配置文件多了一项 
+    然后在你的项目目录下运行指令 git config –list 发现配置文件多了一项 
 
-credential.helper=store
+    credential.helper=store
 
 4. 同步一下
