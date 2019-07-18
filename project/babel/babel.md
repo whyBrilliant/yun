@@ -23,35 +23,40 @@
   - Preset 的顺序则 刚好相反(从后向前)
 
 ```
-.babelrc 文件，会先调用 "stage-0"
+.babelrc 文件，presets中会先调用 "stage-0"，plugins中会先调用 "transform-es2015-arrow-functions"
 
 {
   "presets": [
     "es2015",
     "react",
     "stage-0"
-  ]
+  ],
+  "plugins": [
+    "transform-es2015-arrow-functions", //转译箭头函数
+    "transform-es2015-classes", //转译class语法
+    "transform-es2015-spread", //转译数组解构
+    "transform-es2015-for-of" //转译for-of
+]
 }
 ```
 
 
 ```
-.babelrc 文件，会先调用 "transform-es2015-arrow-functions"
-
-{
-    "plugins": [
-        "transform-es2015-arrow-functions", //转译箭头函数
-        "transform-es2015-classes", //转译class语法
-        "transform-es2015-spread", //转译数组解构
-        "transform-es2015-for-of" //转译for-of
-    ]
-}
 //如果要为某个插件添加配置项，按如下写法：
 {
-    "plugins":[
-        //改为数组，第二个元素为配置项
-        ["transform-es2015-arrow-functions", { "spec": true }]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage", // polyfills are automatically imported when needed
+        "corejs": 3
+      }
     ]
+  ],
+  "plugins":[
+      //改为数组，第二个元素为配置项
+      ["transform-es2015-arrow-functions", { "spec": true }]
+  ]
 }
 
 ```
@@ -70,7 +75,7 @@
         // 第二个元素是对象，列出配置项
         {
           "module": false
-        }s
+        }
     ],
 
     // 不带配置项，直接列出名字
@@ -189,10 +194,10 @@ var _ref = _asyncToGenerator3(function* (arg1, arg2) {
 
 ```
 
-从定义方法改成引用，那重复定义就变成了重复引用，就不存在代码重复的问题了。
+从定义方法改成引用，那重复定义就变成了重复引用，就不存在代码重复的问题了。**节省代码，减小体积。**
 
 但在这里，我们也发现 babel-runtime 出场了，它就是这些方法的集合处，也因此，在使用 babel-plugin-transform-runtime 的时候必须把 babel-runtime 当做依赖。
-再说 babel-runtime，它内部集成了
+再说 babel-runtime，它内部集成了:
 
 
 core-js: 转换一些内置类 (Promise, Symbols等等) 和静态方法 (Array.from 等)。绝大部分转换是这里做的。自动引入。
