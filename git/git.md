@@ -89,3 +89,30 @@ git config credential.helper store [–file=.git_credentails]
     credential.helper=store
 
 4. 同步一下
+
+
+## git 使用的常见问题
+
+### 1. 没有.git文件
+
+```
+fatal: Not a git repository (or any of the parent directories): .git
+```
+
+解决办法
+```
+git init
+```
+
+### 2. 没有远程仓库
+
+```
+No remote repository specified.  Please, specify either a URL or a
+remote name from which new revisions should be fetched.
+```
+
+解决办法
+
+```
+
+```
