@@ -124,7 +124,8 @@ new HtmlWebpackPlugin({
         minifyCSS: true // 压缩内联 css
       },
       filename: 'index.html', // 生成后的文件名
-      template: 'index.html' // 根据此模版生成 HTML 文件
+      template: 'index.html', // 根据此模版生成 HTML 文件
+      chunks: ['app'] // entry中的 app 入口才会被打包
     })
 ```
 
@@ -183,6 +184,91 @@ new OptimizeCssAssetsPlugin({
   cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给 cssProcessor 的选项，默认为{}
   canPrint: true //布尔值，指示插件是否可以将消息打印到控制台，默认为 true
   })
+```
+
+### 6 postcss-loader autoprefixer
+有两种方式来配置 postcss，第一种是直接写在 webpack.config.js 中
+
+```
+rules: [
+    {
+      test: /\.(sa|sc|c)ss$/, // 针对 .sass .scss 或者 .css 后缀的文件设置 loader
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader
+        },
+        'css-loader',
+        // 使用 postcss 为 css 加上浏览器前缀
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [require('autoprefixer')]
+          }
+        },
+        'sass-loader' // 使用 sass-loader 将 scss 转为 css
+      ]
+    }
+  ]
+
+```
+
+第二种方式，在 webpack.config.js 同级目录下，新建 postcss.config.js 配置文件
+
+```
+// postcss.config.js
+module.exports = {
+  plugins: [require('autoprefixer')]
+}
+
+// webpack.config.js
+rules: [
+    {
+      test: /\.(sa|sc|c)ss$/, // 针对 .sass .scss 或者 .css 后缀的文件设置 loader
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader
+        },
+        'css-loader',
+        'postcss-loader', // 使用 postcss 为 css 加上浏览器前缀
+        'sass-loader' // 使用 sass-loader 将 scss 转为 css
+      ]
+    }
+  ]
+```
+
+补充：在 css-loader 中使用 importLoaders 属性
+importLoaders 表示：在一个 css 中引入了另一个 css，也会执行之前两个 loader，即 postcss-loader 和 sass-loader
+
+```
+rules: [
+    {
+      test: /\.(sa|sc|c)ss$/, // 针对 .sass .scss 或者 .css 后缀的文件设置 loader
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader
+        },
+        {
+          loader: css - loader,
+          options: {
+            importLoaders: 2
+          }
+        },
+        'postcss-loader', // 使用 postcss 为 css 加上浏览器前缀
+        'sass-loader' // 使用 sass-loader 将 scss 转为 css
+      ]
+    }
+  ]
+```
+
+### 7 NamedModulesPlugin
+
+```
+  plugins: [
+    ...
+    new webpack.HotModuleReplacementPlugin(), // 热部署模块
+    new webpack.NamedChunksPlugin(), // 热加载时直接返回更新文件名，而不是文件的id。
+    ...
+  ]
 ```
 
 ## 非常用类
