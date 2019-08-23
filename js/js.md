@@ -19,6 +19,35 @@ const list = List(10)
 
 ## JS常见的技术
 
+### 解构
+1. 有一个可能为空的数组，希望获得数组的第二项，如果该项不存在，则使用默认值
+
+```
+const colors = [];
+const [, secondColor = 'white'] = colors
+
+secondColor // white
+```
+
+2. 创建一个新的数组(对象)b，使得b包含a数组(对象)第一个元素外的所有元素
+
+```
+// 数组
+const a  = [1, 2, 3]
+const [, ...b] = a
+
+// 对象
+const a = {
+  foo: 'foo',
+  bar: 'bar',
+  name: 'name'
+}
+
+const { foo, ...b } = a
+b // { bar: 'bar', name: 'name' }
+a // { foo: 'foo', bar: 'bar', name: 'name' }
+```
+
 ### 懒加载
 
 ```
