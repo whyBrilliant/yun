@@ -271,6 +271,29 @@ rules: [
   ]
 ```
 
+路由文件中需要这样定义
+```
+// request 代表变量filePath
+const lazyLoad = filePath => lazy(
+  () => {
+    return new Promise(resolve => setTimeout(resolve, 100))
+    .then(() => import(/* webpackChunkName: "[request]" */ `pages/${filePath}`))
+    .catch(() => import('pages/Error'))
+  }
+)
+```
+
+### 8 DefinePlugin 定义全部变量
+```
+// 此处定义全局变量__API__BASE__
+plugins: [
+  new webpack.DefinePlugin({ __API__BASE__: JSON.stringify(config.apiBase) }),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NamedChunksPlugin(),
+  ]
+```
+
+
 ## 非常用类
 
 ### 1. webpack-bundle-analyzer
