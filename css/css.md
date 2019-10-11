@@ -202,6 +202,14 @@ li:not(:nth-child(-n+3)) {
 
 ```
 
+#### nth-of-type 选择器匹配同类型中的第n个同级兄弟元素
+eg: 每行4个元素，第四个元素不显示border-right
+```
+li:nth-of-type(4n) {
+  border-right: none;
+}
+```
+
 ### 属性选择器
 1. a元素没有文本内容，但有href属性的时候，显示它的href属性
 
