@@ -85,7 +85,7 @@ git config credential.helper store [–file=.git_credentails]
 
 
     然后在你的项目目录下运行指令 git config –list 发现配置文件多了一项 
-
+    
     credential.helper=store
 
 4. 同步一下
@@ -93,26 +93,29 @@ git config credential.helper store [–file=.git_credentails]
 
 ## git 使用的常见问题
 
-### 1. 没有.git文件
+ 1. 没有.git文件
 
-```
-fatal: Not a git repository (or any of the parent directories): .git
-```
+	```
+	fatal: Not a git repository (or any of the parent directories): .git
+	```
 
-解决办法
-```
-git init
-```
+	解决办法`git init`
 
-### 2. 没有远程仓库
+ 2. 没有远程仓库
 
-```
-No remote repository specified.  Please, specify either a URL or a
+	```
+	No remote repository specified.  Please, specify either a URL or a
 remote name from which new revisions should be fetched.
-```
+	```
 
-解决办法
+	解决办法
 
-```
 
-```
+
+3. remote origin already exists.
+
+   ```
+   git remote rm origin xxx
+   ```
+
+   

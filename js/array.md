@@ -2,6 +2,72 @@
 
 ## array function
 
+1. 获取数组片段
+
+   ```
+   const a = [1, 2, 3, 4, 5]
+   var b = a.slice(0, 2) // [1, 2]
+   var b = a.splice(2) // [3, 4, 5] ⭐
+   ```
+
+2. 数组的拷贝
+
+   ```
+   const a = [1, 2, 3, 4, 5]
+   
+   // 方式一: 展开操作符
+   const b = [...a]
+   a === b // false
+   
+   // 方式二：array.concat方法
+   const c = [].concat(a)
+   a === c // false
+   
+   // 方式三: array.slice方法
+   const d = a.slice()
+   
+   // 我自己觉得
+   b = a.map(i => i)
+   b = Array.from(a, i => i)
+   ```
+
+3. 清空数组
+
+   ```
+   const a = [1, 2, 3, 4, 5]
+   // 方式一：
+   a.length = 0
+   // 方式二：
+   //如果array.splice(fromIdex[, removeCount[, item1[, item2[, ...]]]])的removeCount参数被省略，那么array.splice将删除从fromIndex开始的数组的所有元素
+   a.splice(0) 
+   ```
+
+4. 数组填充
+
+   ```
+   const a = [1, 2, 3, 4, 5]
+   // 方式一：array.fill ⭐ 会改变原数组
+   a.fill('b', 2, 4) // [1, 2, 'b', 'b', 5]
+   a.fill(0) // [0, 0, 0, 0, 0]
+   Array(5).fill(0) // [0, 0, 0, 0, 0]
+   
+   // 方式二：Array.from
+   Array.from(a.length, () => ({})) // [{}, {}, {}, {}, {}]
+   
+   ```
+
+5. 数组的扁平化
+
+   ```
+   // flat 创建一个新数组，而不会改变原始数组。且只能扁平化第一层
+   const arrays = [0, [1, 3, 5], [2, 4, 6]];
+   const flatArray = arrays.flat();// [0, 1, 3, 5, 2, 4, 6]
+   
+   
+   ```
+
+   
+
 
 
 ## array utils function

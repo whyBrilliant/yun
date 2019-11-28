@@ -1,13 +1,13 @@
 # css 常见问题
 
-## position: fixed降级问题
+## 1. position: fixed降级问题
 
 在吸顶效果中,在使用position: fixed;属性时，如果其父元素中有使用transform,fixed的效果就会降级为absolute
 
 解决方案：当使用fixed的直接父元素的高度和屏幕的高度相同时，fixed和absolute的表现效果会是一样的。即如果这个直接父级的元素存在滚动的情况，就需要加上 overflow-y:auto;
 
 
-## 1px
+## 2. 1px
 
 方案一： 使用伪类+transform
 
