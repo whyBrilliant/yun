@@ -29,5 +29,17 @@
    }
    ```
 
+6.  --public-url ： 打包后的文件地址需要添加nginx代理后的路径
+
+   ```
+   eg: 
+   <script src="/raise.77eddc37.js" type="text/javascript"></script>
+   需要修改为：
+   <script src="/bi/raise.77eddc37.js" type="text/javascript"></script>
+   ```
+
+   
+
+   需要设置 "build": "parcel build index.html --public-url /bi/"
 
    
