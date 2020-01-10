@@ -114,3 +114,49 @@ eg:
 
 
 eg: tar  -zxvf  xxxx.tar.gz  -C  /etc/local/src/xxxx-dir 将压缩文件解压到目标目录
+
+
+
+## linux指令
+
+1. ll
+
+   罗列出当前文件或目录的详细信息，含有时间、读写权限、大小、时间等信息 ，像Windows显示的详细信息。ll是“ls -l"的别名。相当于Windows里的快捷方式。可以理解为 ll 和 ls -l 的功能是相同的， ll 是ls -l 的别名。
+   
+   ```
+   $ ll
+   ```
+   
+   
+   
+2. su
+
+   可以让一个普通用户拥有超级用户或其它用户的权限，也可以让超级用户以普通用户的身份做一些事情。
+
+   ```
+   // 命令格式
+   su [选项]用户
+   -l 改变身份，同时变更工作目录和环境变量
+   -m 变更身份，不改变环境变量
+   
+   $ su root
+   $ suadmin
+   ```
+
+3. sudo
+
+   可以让用户以其它的身份来执行指定的命令，预设的身份是root。用户使用sudo时，需先输入密码，之后5分钟的有效期。
+
+   ```
+   sudo [选项] 命令
+   // 切换admin用户到root
+   $ sudo -s 
+   ```
+
+   在使用sudo命令的时候有可能会报出一个错误：admin is not in the sudoers file.  This incident will be reported.
+
+   这个错误的解决方法：先切换到root用户下，然后输入命令visudo,找到root ALL=(ALL)ALL，在下面添加一个自己用户，xxx ALL=(ALL)ALL
+
+   xxx为自己的用户名。
+
+   Ubuntu的root用户密码是随机生成的，CtenOS初始root密码和我们之前设置的密码一致，如果要修改要用 $ sudo passwd root

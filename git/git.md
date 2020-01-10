@@ -118,4 +118,66 @@ remote name from which new revisions should be fetched.
    git remote rm origin xxx
    ```
 
+
+
+
+## git命令
+
+1. git revert
+
+   * 在当前提交后面，新增一次提交，抵消掉上一次提交，它不会改变历史。
+
+   ```
+   git revert HEAD
+   ```
+
+   * 抵消多次提交
+
+   ```
+   git revert [倒数第一个提交] [倒数第二个提交]
+   ```
+
+   * 参数
+
+   ```
+   --no-edit：执行时不打开默认编辑器，直接使用 Git 自动生成的提交信息。
+   --no-commit：只抵消暂存区和工作区的文件变化，不产生新的提交。
+   ```
+
+2. git reset
+
+   git reset的原理是，让最新的提交指针回到以前某个时点，丢弃掉这个时点之后的所有提交。
+
+   ```
+   git reset [last good SHA]
+   ```
+
+   git reset不改变工作区的文件(但会改变暂存区), --hard参数可以让工作区的文件也回到以前的状态。
+
+   ```
+   git reset --hard [last good SHA]
+   ```
+
+   git reset之后，如果想找回丢弃掉的提交，可以使用git reflog命令，不过这种做法有时效性，时间长了可能找不回来。
+
+3. git commit
+
+   * 提交之后，发现**提交信息**写错了，可以使用git commit命令的--amend参数，修改上一次的提交信息。
+
+   ```
+   git commit --amend -m "fix bugs bai815yang"
+   ```
+
+   它的原理是产生一个新的提交对象，替换掉上一次提交产生的提交对象。
+
+   此时，如果暂存区有发生变化的文件，会一起提交到仓库。所有，--amend不仅可以修改提交信息，还可以把上一次提交替换掉。
+
+4. git rm
+
+   如果想撤销暂存区的文件可以使用该指令，但不影响已经提交的内容。
+
+   ```
+   git rm --cached [filename]
+   ```
+
    

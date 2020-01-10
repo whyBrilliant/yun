@@ -40,8 +40,12 @@
    eslint --init
    ```
 
-    将配置好的规则添加到webpack中对js文件检查 
+   配置好eslintrc文件后，这样eslint就可以使用了
 
+   
+   
+   或者 将配置好的规则添加到webpack中对js文件检查 
+   
    ```javascript
    // webpack.config.js
    module.exports = {

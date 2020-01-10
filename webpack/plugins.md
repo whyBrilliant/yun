@@ -283,15 +283,82 @@ const lazyLoad = filePath => lazy(
 )
 ```
 
-### 8 DefinePlugin 定义全部变量
+
+
+### 8 HappyPack
+
+> **happypack** 是用通过 js 的多进程来实现打包加速，当你的 **loader** 很慢的时候，可以加上 **happypack**。
+
 ```
-// 此处定义全局变量__API__BASE__
+var HappyPack = require('happypack');
+var happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+
+...
+module: {
+        rules: [
+            {
+                test: /\.(js?|tsx?|ts?)$/,
+                include: [
+                    path.resolve(__dirname, 'src'),
+                ],
+                use: [
+                    {
+                        loader: 'happypack/loader?id=happyBabel',
+                    },
+                ],
+            },
+...
 plugins: [
-  new webpack.DefinePlugin({ __API__BASE__: JSON.stringify(config.apiBase) }),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NamedChunksPlugin(),
-  ]
+        new HappyPack({
+            id: 'happyBabel',
+            loaders: ['babel-loader'],
+            threadPool: happyThreadPool,
+            verbose: true,
+        })
+]
+...
 ```
+
+happypack 是通过 **[loader](https://segmentfault.com/a/1190000021037299?utm_source=tag-newest#)** 调用 **[plugin](https://segmentfault.com/a/1190000021037299?utm_source=tag-newest#)** 来打成插件的目的。**loader** 指向 **HappyLoader.js** , loader 执行的时候，根据 **?** 后面的 **id** 来找到对应的插件。
+
+[参考文章](https://segmentfault.com/a/1190000021037299?utm_source=tag-newest)
+
+
+
+happypack的将在以后被**[thread-loader](https://github.com/webpack-contrib/thread-loader)**取代
+
+
+
+### 9 webpack-parallel-uglify-plugin
+
+> 优化代码的压缩时间
+
+这个插件可以帮助有多入口的项目加快构建速度，webpack提供的UgliffyJS插件按顺序运行在每个输出文件上，因为代码优化非常占用CPU,这个插件为每个可用的CPU并行运行一个线程，从而显著减少构建时间。
+
+```
+  optimization: {
+    minimizer: [
+      new ParalleUglifyPlugin({
+        cacheDir: '.cache/',
+        uglifyJS: {
+          output: {
+            comments: false,
+            beautify: false
+          },
+          compress: {
+            drop_console: true,
+            collapse_vars: true,
+            reduce_vars: true
+          }
+        }
+      })
+    ],
+    ...
+    }
+```
+
+
+
 
 
 ## 非常用类
