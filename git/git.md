@@ -104,8 +104,9 @@ git config credential.helper store [–file=.git_credentails]
  2. 没有远程仓库
 
 	```
-	No remote repository specified.  Please, specify either a URL or a
-remote name from which new revisions should be fetched.
+
+	No remote repository specified.  Please, specify either a URL or a remote name from which new revisions should be fetched.
+
 	```
 
 	解决办法
@@ -118,6 +119,21 @@ remote name from which new revisions should be fetched.
    git remote rm origin xxx
    ```
 
+4. error: src refspec master does not match any
+原因：
+   1. 本地git仓库目录下为空
+   2. 本地仓库add后未commit
+   3. git init错误
+
+   本地仓库至远程得一般步骤为
+   ```
+   echo "# vue-mobile-template" >> README.md
+   git init
+   git add README.md
+   git commit -m "first commit"
+   git remote add origin https://github.com/whycck/vue-mobile-template.git
+   git push -u origin master
+   ```
 
 
 
