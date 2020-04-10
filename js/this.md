@@ -112,7 +112,7 @@ new绑定 > 隐式绑定 > 默认绑定
 
 ```
 obj.foo.call(obj2); // this指向obj2 显式绑定比隐式绑定优先级高。
-new obj.foo(); // thsi指向new新创建的对象 new绑定比隐式绑定优先级高。
+new obj.foo(); // this指向new新创建的对象 new绑定比隐式绑定优先级高。
 ```
 
 注意：箭头函数的this指向不会使用上述的四条规则

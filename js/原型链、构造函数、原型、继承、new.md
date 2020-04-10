@@ -14,9 +14,9 @@ p.constructor === Parent; // true
 
 ```
 
-![]('../img/prototype-5.jpg')
+![](https://github.com/whyBrilliant/yun/blob/master/img/prototype-2.jpg)
 
-由图可以看到实例对象 p 本身没有 constructor 属性，是通过原型链向上查找 __proto__ ，最终查找到 constructor 属性，该属性指向 Parent。
+由图可以看到实例对象 p 本身没有 constructor 属性，是通过原型链向上查找 \_\_proto__'，最终查找到 constructor 属性，该属性指向 Parent。
 
 ```
 function Parent(age) {
@@ -29,7 +29,7 @@ p.__proto__ === Parent.prototype; // true
 p.__proto__.__proto__ === Object.prototype; // true
 p.__proto__.__proto__.__proto__ === null; // true
 ```
-![]('../img/prototype-4.jpg')
+![]('https://github.com/whyBrilliant/yun/blob/master/img/prototype-4.jpg')
 
 
 ## 构造函数
@@ -108,19 +108,19 @@ console.log( types.join("\n") );
 
 > prototype: 每个对象拥有一个原型对象，对象以其原型为模板，从原型继承方法和属性，这些属性和方法定义在对象的构造器函数的 prototype 属性上，而非对象实例本身。
 
-![]('../prototype.jpg')
+![]('https://github.com/whyBrilliant/yun/blob/master/img/prototype.jpg')
 
-从上面这张图可以发现，Parent 对象有一个原型对象 Parent.prototype，其上有两个属性，分别是 constructor 和 __proto__，其中 __proto__ 已被弃用。
+从上面这张图可以发现，Parent 对象有一个原型对象 Parent.prototype，其上有两个属性，分别是 constructor 和 \_\_proto__，其中 \_\_proto__ 已被弃用。
 
 构造函数 Parent 有一个指向原型的指针，原型 Parent.prototype 有一个指向构造函数的指针 Parent.prototype.constructor，如上图所示，其实就是一个循环引用。
 
-![]('../prototype-1.jpg')
+![]('https://github.com/whyBrilliant/yun/blob/master/img/prototype-1.jpg')
 
 > \_\_proto__ 是每个实例上都有的属性, 这是一个访问器属性（即 getter 函数和 setter 函数），通过它可以访问到对象的内部 [[Prototype]] (一个对象或 null )
 
-![]('../prototype-2.jpg')
+![]('https://github.com/whyBrilliant/yun/blob/master/img/prototype-2.jpg')
 
-这里用 p.__proto__ 获取对象的原型，prototype 是构造函数的属性，p.__proto__ 和 Parent.prototype 指向同一个对象。
+这里用 p.\_\_proto__ 获取对象的原型，prototype 是构造函数的属性，p.\_\_proto__ 和 Parent.prototype 指向同一个对象。
 
 ```
 function Parent() {}
@@ -150,7 +150,7 @@ function Parent() {
 var p = new Parent();
 var child = Object.create(p);
 ```
-这里 child 是一个新的空对象，有一个指向对象 p 的指针 __proto__。
+这里 child 是一个新的空对象，有一个指向对象 p 的指针 \_\_proto__。
 
 
 #### 小结
@@ -158,7 +158,7 @@ var child = Object.create(p);
 - 引用类型 constructor 属性值是可以修改的，但是对于基本类型来说是只读的，当然 null 和 undefined 没有 constructor 属性。
 - \_\_proto__ 是每个实例上都有的属性，prototype 是构造函数的属性，这两个并不一样，但  p.__proto__ 和 Parent.prototype 指向同一个对象。
 - \_\_proto__ 属性在 ES6 时被标准化，但因为性能问题并不推荐使用，推荐使用 Object.getPrototypeOf()。
-- 每个对象拥有一个原型对象，通过 __proto__ 指针指向上一个原型 ，并从中继承方法和属性，同时原型对象也可能拥有原型，这样一层一层，最终指向 null，这就是原型链。
+- 每个对象拥有一个原型对象，通过 \_\_proto__ 指针指向上一个原型 ，并从中继承方法和属性，同时原型对象也可能拥有原型，这样一层一层，最终指向 null，这就是原型链。
 
 #### 参考
 - 掘金 木易杨说 [【进阶5-1期】重新认识构造函数、原型和原型链](https://juejin.im/post/5c6a9c10f265da2db87b98f3)
@@ -494,8 +494,8 @@ function _inherits(subType, superType) {
   }
 }
 ```
-1. 子类的 __proto__ 属性，表示构造函数的继承，总是指向父类。
-2. 子类 prototype 属性的 __proto__ 属性，表示方法的继承，总是指向父类的 prototype 属性。
+1. 子类的 \_\_proto__ 属性，表示构造函数的继承，总是指向父类。
+2. 子类 prototype 属性的 \_\_proto__ 属性，表示方法的继承，总是指向父类的 prototype 属性。
 
 #### 参考
 - 掘金 小生方勤 [【前端词典】继承（二） - 回的八种写法·面试必问](https://juejin.im/post/5c40408bf265da61193c1606)
